@@ -15,7 +15,7 @@ services:
       - WINRM_USERNAME=REPLACE_WITH_USERNAME
       - WINRM_PASSWORD=REPLACE_WITH_PASSWORD
       - TARGET_DIRS=C:\\Program Files (x86)\\Splashtop;C:\\Program Files (x86)\\ATERA Networks;C:\\Program Files\\Splashtop;C:\\Program Files\\ATERA Networks
-      - SAMPLE_INTERVAL_SECONDS=5
+      - SAMPLE_INTERVAL_SECONDS=1
       - PERSIST_PATH=/app_data/metrics.json
     volumes:
       - monitor_data:/app_data

@@ -16,7 +16,7 @@ _store = InMemoryTimeSeriesStore(max_points=7200, persistence_path=PERSIST_PATH,
 _store.load_from_disk()
 
 _mode = os.getenv("MONITOR_MODE", "winrm").lower()
-_interval = float(os.getenv("SAMPLE_INTERVAL_SECONDS", "5"))
+_interval = float(os.getenv("SAMPLE_INTERVAL_SECONDS", "1"))
 _targets = load_targets_from_env()
 _sampler = Sampler(store=_store, interval_seconds=_interval, mode=_mode, targets=_targets)
 _sampler.start()

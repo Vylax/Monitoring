@@ -17,7 +17,7 @@ RUN mkdir -p /app_data
 EXPOSE 8000
 
 ENV MONITOR_MODE=winrm \
-    SAMPLE_INTERVAL_SECONDS=5 \
+    SAMPLE_INTERVAL_SECONDS=1 \
     PERSIST_PATH=/app_data/metrics.json
 
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "app.server:app", "--workers", "1", "--threads", "4"]
