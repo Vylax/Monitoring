@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.coverage
+*.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+monitor/.venv/
+
+# Pip/packaging metadata
+pip-wheel-metadata/
+
+# Editors/IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Local data/persistence (do not commit runtime data)
+app_data/
+monitor_data/
+**/metrics.json
+
+# Env files
+.env
+.env.*
+
+docker-compose.override.yml

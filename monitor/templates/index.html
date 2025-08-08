@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Activity Monitor Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+      body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 0; background: #0b1220; color: #e6eef8; }
+      header { padding: 16px 24px; background: #0f172a; border-bottom: 1px solid #1e293b; display: flex; align-items: center; justify-content: space-between; }
+      header h1 { font-size: 18px; margin: 0; font-weight: 600; }
+      .container { padding: 24px; }
+      .controls { display: flex; gap: 12px; align-items: center; margin: 8px 0 16px; }
+      select, button, input { background: #111827; color: #e6eef8; border: 1px solid #374151; border-radius: 8px; padding: 8px 12px; }
+      .btn { cursor: pointer; }
+      .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+      .chart-wrap { position: relative; height: 280px; }
+      canvas.dashboard-chart { display: block; height: 100% !important; width: 100% !important; }
+      .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px; font-size: 12px; }
+      .legend span { display: inline-flex; align-items: center; gap: 6px; background: #0b1220; border: 1px solid #1e293b; padding: 4px 8px; border-radius: 999px; }
+      .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+      a { color: #93c5fd; }
+
+      .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; }
+      .modal .panel { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 16px; width: 360px; }
+      .row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+      .row label { font-size: 12px; color: #cbd5e1; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Activity Monitor</h1>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button id="credsBtn" class="btn">Connect</button>
+        <a href="/api/snapshot" target="_blank">API</a>
+      </div>
+    </header>
+    <div class="container">
+      <div class="controls">
+        <label for="windowSelect">View</label>
+        <select id="windowSelect">
+          <option value="5m">5 min</option>
+          <option value="30m" selected>30 min</option>
+          <option value="1h">1 h</option>
+          <option value="4h">4 h</option>
+          <option value="12h">12 h</option>
+          <option value="1d">1 day</option>
+          <option value="3d">3 days</option>
+          <option value="1w">1 week</option>
+          <option value="1mo">1 month</option>
+          <option value="6mo">6 months</option>
+          <option value="1y">1 year</option>
+        </select>
+      </div>
+
+      <div id="legend" class="legend"></div>
+
+      <div class="card">
+        <div class="chart-wrap"><canvas id="chartCpu" class="dashboard-chart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="chart-wrap"><canvas id="chartMem" class="dashboard-chart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="chart-wrap"><canvas id="chartProc" class="dashboard-chart"></canvas></div>
+      </div>
+    </div>
+
+    <div id="credsModal" class="modal">
+      <div class="panel">
+        <div class="row">
+          <label>Host</label>
+          <input id="hostInput" placeholder="host.docker.internal" />
+        </div>
+        <div class="row">
+          <label>Username</label>
+          <input id="userInput" />
+        </div>
+        <div class="row">
+          <label>Password</label>
+          <input id="passInput" type="password" />
+        </div>
+        <div class="row">
+          <label>Port</label>
+          <input id="portInput" value="5985" />
+        </div>
+        <div class="row" style="flex-direction:row; align-items:center; gap:8px;">
+          <input id="sslInput" type="checkbox" /> <span>Use SSL</span>
+        </div>
+        <div style="display:flex; gap:8px; justify-content:flex-end;">
+          <button id="cancelBtn" class="btn">Cancel</button>
+          <button id="saveBtn" class="btn">Connect</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/main.js"></script>
+  </body>
+</html>
